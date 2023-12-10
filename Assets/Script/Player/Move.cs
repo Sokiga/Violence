@@ -27,14 +27,28 @@ public class Move : MonoBehaviour
     {
         rb.velocity = MoveSpead * movement / 2;
         //（修改地方）更改角色控制器移动类型
-        playerController.moveType = MoveType.kCreep;
+        if(rb.velocity.magnitude>0.05f)
+        {
+            playerController.moveType = MoveType.kCreep;
+        }
+        else
+        {
+            playerController.moveType = MoveType.kStop;
+        }
 
     }
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
         //（修改地方）改角色控制器移动类型
-        playerController.moveType= MoveType.kRun;
+        if(rb.velocity.magnitude>0.05f)
+        {
+            playerController.moveType= MoveType.kRun;
+        }
+        else
+        {
+            playerController.moveType = MoveType.kStop;
+        }
     }
     public float MoveSpead = 5f;
     public Rigidbody2D rb;
