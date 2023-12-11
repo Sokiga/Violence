@@ -16,8 +16,8 @@ public class CmeraControl : MonoBehaviour
     {
         Vector3 pos = transform.position;
         pos.x=lookat.transform.position.x;
-        pos.z=lookat.transform.position.z;
-        pos.y = 15;
+        pos.y = lookat.transform.position.y;
+        pos.z = 15;
         transform.position = pos;
         Vector3 cameraPos = SetCameraPos();
         transform.position=cameraPos;
@@ -32,7 +32,7 @@ public class CmeraControl : MonoBehaviour
     public Vector3 SetCameraPos()
     {
         Vector3 offsetPos= GetVectorOffset();
-        Vector3 cameraPos=new Vector3(lookat.transform.position.x,15,lookat.transform.position.z);
+        Vector3 cameraPos=new Vector3(lookat.transform.position.x, lookat.transform.position.y, 15);
         cameraPos=cameraPos+offsetPos*0.001f;
         return cameraPos;
     } 
