@@ -6,6 +6,7 @@ public class Move : MonoBehaviour
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private PlayerController playerController;
     private void Start()
     {
@@ -54,10 +55,22 @@ public class Move : MonoBehaviour
     {
         rb.velocity = MoveSpead * movement;
 >>>>>>> parent of ced1ad7 (vio)
+=======
+   
+      
+    
+  
+
+    // Start is called before the first frame update
+    public void Run()
+    {
+        rb.velocity = MoveSpead * movement;
+>>>>>>> parent of ced1ad7 (vio)
     }
     public void SlowMove()
     {
         rb.velocity = MoveSpead * movement / 2;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -78,6 +91,8 @@ public class Move : MonoBehaviour
 <<<<<<< HEAD
 =======
 >>>>>>> parent of ced1ad7 (vio)
+=======
+>>>>>>> parent of ced1ad7 (vio)
 
 =======
 >>>>>>> parent of f80107e (Text1)
@@ -88,6 +103,7 @@ public class Move : MonoBehaviour
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -111,6 +127,8 @@ public class Move : MonoBehaviour
 >>>>>>> parent of b38d41a (Text)
 =======
 >>>>>>> parent of ced1ad7 (vio)
+=======
+>>>>>>> parent of ced1ad7 (vio)
     }
     public float MoveSpead = 5f;
     public Rigidbody rb;
@@ -118,6 +136,7 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         if (!playerController.isStopMove)
@@ -147,6 +166,8 @@ public class Move : MonoBehaviour
     }
 
 =======
+=======
+>>>>>>> parent of ced1ad7 (vio)
         //检测用户输入 
         movement.x = Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
         movement.z = Input.GetAxis("Vertical");
@@ -154,6 +175,9 @@ public class Move : MonoBehaviour
     //就比如我按下键盘的左箭头，意味着要往左动函数会返回-1
     //如果是右箭头 意味着会返回-1
 }
+<<<<<<< HEAD
+>>>>>>> parent of ced1ad7 (vio)
+=======
 >>>>>>> parent of ced1ad7 (vio)
     void FixedUpdate()
     {
@@ -194,6 +218,7 @@ public class Move : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      
 
 =======
@@ -212,6 +237,9 @@ public class Move : MonoBehaviour
 =======
       
 >>>>>>> parent of b38d41a (Text)
+=======
+      
+>>>>>>> parent of ced1ad7 (vio)
 
         //movement*速度*函数与函数被调用之间的时间间隔
         //恒定速度移动

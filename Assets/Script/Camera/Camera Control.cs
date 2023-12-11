@@ -19,6 +19,7 @@ public class CmeraControl : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         pos.y = lookat.transform.position.y;
 
@@ -30,6 +31,10 @@ public class CmeraControl : MonoBehaviour
         pos.z=lookat.transform.position.z;
         pos.y = 15;
 >>>>>>> parent of b38d41a (Text)
+=======
+        pos.z=lookat.transform.position.z;
+        pos.y = 15;
+>>>>>>> parent of ced1ad7 (vio)
 =======
         pos.z=lookat.transform.position.z;
         pos.y = 15;
@@ -51,6 +56,7 @@ public class CmeraControl : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         Vector3 cameraPos=new Vector3(lookat.transform.position.x,lookat.transform.position.y,15f);
 
@@ -60,6 +66,9 @@ public class CmeraControl : MonoBehaviour
 =======
         Vector3 cameraPos=new Vector3(lookat.transform.position.x,15,lookat.transform.position.z);
 >>>>>>> parent of b38d41a (Text)
+=======
+        Vector3 cameraPos=new Vector3(lookat.transform.position.x,15,lookat.transform.position.z);
+>>>>>>> parent of ced1ad7 (vio)
 =======
         Vector3 cameraPos=new Vector3(lookat.transform.position.x,15,lookat.transform.position.z);
 >>>>>>> parent of ced1ad7 (vio)
