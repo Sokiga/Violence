@@ -1,45 +1,75 @@
+using BehaviorDesigner.Runtime.Tasks.Movement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-   
-      
-    
-  
-
-    // Start is called before the first frame update
+    private PlayerController playerController;
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
     public void Run()
     {
         rb.velocity = MoveSpead * movement;
+        if (rb.velocity.magnitude > 0.05f)
+        {
+            playerController.moveType = MoveType.kTrot;
+        }
+        else
+        {
+            playerController.moveType = MoveType.kStop;
+        }
     }
     public void SlowMove()
     {
         rb.velocity = MoveSpead * movement / 2;
-
+        playerController.moveType = MoveType.kCreep;
+        if (rb.velocity.magnitude > 0.05f)
+        {
+            playerController.moveType = MoveType.kCreep;
+        }
+        else
+        {
+            playerController.moveType = MoveType.kStop;
+        }
     }
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
+
+        playerController.moveType = MoveType.kRun;
+        if (rb.velocity.magnitude > 0.05f)
+        {
+            playerController.moveType = MoveType.kRun;
+        }
+        else
+        {
+            playerController.moveType = MoveType.kStop;
+        }
     }
     public float MoveSpead = 5f;
-    public Rigidbody rb;
+    public Rigidbody2D rb;
     Vector3 movement;
-    // Update is called once per frame
+
     void Update()
     {
-        //检测用户输入 
-        movement.x = Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
-        movement.z = Input.GetAxis("Vertical");
+        if (!playerController.isStopMove)
+        {
+            
+            movement.x = -Input.GetAxis("Horizontal");
+            movement.y = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            movement = Vector3.zero;
+        }
        
-    //就比如我按下键盘的左箭头，意味着要往左动函数会返回-1
-    //如果是右箭头 意味着会返回-1
-}
+    }
     void FixedUpdate()
     {
-       
-        //行动
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Dash();
@@ -52,10 +82,8 @@ public class Move : MonoBehaviour
         {
             Run();
         }
-      
-
-        //movement*速度*函数与函数被调用之间的时间间隔
-        //恒定速度移动
+        
     }
-
 }
+
+    
