@@ -8,15 +8,21 @@ public class Move : MonoBehaviour
     private PlayerController playerController;
     private void Start()
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of f80107e (Text1)
         playerController = GetComponent<PlayerController>();
     }
     public void Run()
     {
         rb.velocity = MoveSpead * movement;
+<<<<<<< HEAD
 
         //（修改地方）更改角色控制器移动类型
 
+=======
+>>>>>>> parent of f80107e (Text1)
         if (rb.velocity.magnitude > 0.05f)
         {
             playerController.moveType = MoveType.kTrot;
@@ -29,9 +35,13 @@ public class Move : MonoBehaviour
     public void SlowMove()
     {
         rb.velocity = MoveSpead * movement / 2;
+<<<<<<< HEAD
 
         playerController.moveType = MoveType.kCreep;
 
+=======
+        playerController.moveType = MoveType.kCreep;
+>>>>>>> parent of f80107e (Text1)
         if (rb.velocity.magnitude > 0.05f)
         {
             playerController.moveType = MoveType.kCreep;
@@ -40,15 +50,23 @@ public class Move : MonoBehaviour
         {
             playerController.moveType = MoveType.kStop;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of f80107e (Text1)
     }
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
+<<<<<<< HEAD
 
 
         playerController.moveType = MoveType.kRun;
 
+=======
+
+        playerController.moveType = MoveType.kRun;
+>>>>>>> parent of f80107e (Text1)
         if (rb.velocity.magnitude > 0.05f)
         {
             playerController.moveType = MoveType.kRun;
@@ -66,6 +84,7 @@ public class Move : MonoBehaviour
     {
         if (!playerController.isStopMove)
         {
+<<<<<<< HEAD
 
             
             movement.x = -Input.GetAxis("Horizontal");
@@ -74,12 +93,17 @@ public class Move : MonoBehaviour
             //（修改地方）调整移动方向
             movement.x = -Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
 
+=======
+            
+            movement.x = -Input.GetAxis("Horizontal");
+>>>>>>> parent of f80107e (Text1)
             movement.y = Input.GetAxis("Vertical");
         }
         else
         {
             movement = Vector3.zero;
         }
+<<<<<<< HEAD
 
        
     }
@@ -89,6 +113,13 @@ public class Move : MonoBehaviour
 
         //行动
 
+=======
+       
+    }
+    void FixedUpdate()
+    {
+        
+>>>>>>> parent of f80107e (Text1)
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Dash();
@@ -101,6 +132,7 @@ public class Move : MonoBehaviour
         {
             Run();
         }
+<<<<<<< HEAD
      
 
 
@@ -108,6 +140,9 @@ public class Move : MonoBehaviour
         //movement*速度*函数与函数被调用之间的时间间隔
         //恒定速度移动
 
+=======
+        
+>>>>>>> parent of f80107e (Text1)
     }
 }
 
