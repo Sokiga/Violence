@@ -1,10 +1,10 @@
-using BehaviorDesigner.Runtime.Tasks.Movement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+<<<<<<< HEAD
     private PlayerController playerController;
     private void Start()
     {
@@ -31,10 +31,22 @@ public class Move : MonoBehaviour
         {
             playerController.moveType = MoveType.kStop;
         }
+=======
+   
+      
+    
+  
+
+    // Start is called before the first frame update
+    public void Run()
+    {
+        rb.velocity = MoveSpead * movement;
+>>>>>>> parent of b38d41a (Text)
     }
     public void SlowMove()
     {
         rb.velocity = MoveSpead * movement / 2;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         playerController.moveType = MoveType.kCreep;
@@ -54,10 +66,14 @@ public class Move : MonoBehaviour
 
 =======
 >>>>>>> parent of f80107e (Text1)
+=======
+
+>>>>>>> parent of b38d41a (Text)
     }
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -75,13 +91,16 @@ public class Move : MonoBehaviour
         {
             playerController.moveType = MoveType.kStop;
         }
+=======
+>>>>>>> parent of b38d41a (Text)
     }
     public float MoveSpead = 5f;
-    public Rigidbody2D rb;
+    public Rigidbody rb;
     Vector3 movement;
-
+    // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         if (!playerController.isStopMove)
         {
 <<<<<<< HEAD
@@ -114,12 +133,24 @@ public class Move : MonoBehaviour
         //行动
 
 =======
+=======
+        //检测用户输入 
+        movement.x = Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
+        movement.z = Input.GetAxis("Vertical");
+>>>>>>> parent of b38d41a (Text)
        
-    }
+    //就比如我按下键盘的左箭头，意味着要往左动函数会返回-1
+    //如果是右箭头 意味着会返回-1
+}
     void FixedUpdate()
     {
+<<<<<<< HEAD
         
 >>>>>>> parent of f80107e (Text1)
+=======
+       
+        //行动
+>>>>>>> parent of b38d41a (Text)
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Dash();
@@ -133,6 +164,7 @@ public class Move : MonoBehaviour
             Run();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
      
 
 
@@ -145,5 +177,12 @@ public class Move : MonoBehaviour
 >>>>>>> parent of f80107e (Text1)
     }
 }
+=======
+      
+>>>>>>> parent of b38d41a (Text)
 
-    
+        //movement*速度*函数与函数被调用之间的时间间隔
+        //恒定速度移动
+    }
+
+}

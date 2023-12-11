@@ -9,13 +9,14 @@ public class CmeraControl : MonoBehaviour
     [SerializeField] GameObject lookat;
     [SerializeField] float smooth;
     [SerializeField] Camera mainCamera;
-    public Rigidbody2D body;
+    public Rigidbody body;
 
   
     private void LateUpdate()
     {
         Vector3 pos = transform.position;
         pos.x=lookat.transform.position.x;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         pos.y = lookat.transform.position.y;
@@ -24,6 +25,10 @@ public class CmeraControl : MonoBehaviour
         pos.y=lookat.transform.position.y;
 >>>>>>> parent of f80107e (Text1)
         pos.z = 15;
+=======
+        pos.z=lookat.transform.position.z;
+        pos.y = 15;
+>>>>>>> parent of b38d41a (Text)
         transform.position = pos;
         Vector3 cameraPos = SetCameraPos();
         transform.position=cameraPos;
@@ -32,12 +37,13 @@ public class CmeraControl : MonoBehaviour
     public Vector3 GetVectorOffset()
     {
         Vector3 screenCenterPos=new Vector3(Screen.width*0.5f,0, Screen.height * 0.5f);
-        Vector3 mousePos=new Vector3(Input.mousePosition.x,0, Input.mousePosition.z);   
+        Vector3 mousePos=new Vector3(Input.mousePosition.x,0, Input.mousePosition.y);   
         return mousePos - screenCenterPos;
     }
     public Vector3 SetCameraPos()
     {
         Vector3 offsetPos= GetVectorOffset();
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         Vector3 cameraPos=new Vector3(lookat.transform.position.x,lookat.transform.position.y,15f);
@@ -45,6 +51,9 @@ public class CmeraControl : MonoBehaviour
 =======
         Vector3 cameraPos=new Vector3(lookat.transform.position.x,lookat.transform.position.y,15f);
 >>>>>>> parent of f80107e (Text1)
+=======
+        Vector3 cameraPos=new Vector3(lookat.transform.position.x,15,lookat.transform.position.z);
+>>>>>>> parent of b38d41a (Text)
         cameraPos=cameraPos+offsetPos*0.001f;
         return cameraPos;
     } 
