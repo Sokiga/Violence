@@ -11,9 +11,11 @@ public class Move : MonoBehaviour
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody2D>();
     }
     public void Run()
     {
+        rb.velocity = MoveSpead * movement;
         if (rb.velocity.magnitude > 0.05f)
         {
             playerController.moveType = MoveType.kTrot;
@@ -38,8 +40,6 @@ public class Move : MonoBehaviour
     public void Dash()
     {
         rb.velocity = MoveSpead * movement * 2;
-        playerController.moveType = MoveType.kRun;
-        playerController.moveType = MoveType.kRun;
         if (rb.velocity.magnitude > 0.05f)
         {
             playerController.moveType = MoveType.kRun;
@@ -56,8 +56,8 @@ public class Move : MonoBehaviour
         if (!playerController.isStopMove)
         {
             //检测用户输入 
-            movement.x = Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
-            movement.z = Input.GetAxis("Vertical");
+            movement.x = -Input.GetAxis("Horizontal");//会根据输入返回一个-1到1之间的值
+            movement.y = Input.GetAxis("Vertical");
         }
         else
         {
