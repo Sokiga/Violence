@@ -5,6 +5,10 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     private PlayerController playerController;
+    public float MoveSpead = 5f;
+    public Rigidbody2D rb;
+    Vector3 movement;
+    // Update is called once per frame
     private void Start()
     {
         //（修改地方）获取角色控制器
@@ -50,10 +54,6 @@ public class Move : MonoBehaviour
             playerController.moveType = MoveType.kStop;
         }
     }
-    public float MoveSpead = 5f;
-    public Rigidbody2D rb;
-    Vector3 movement;
-    // Update is called once per frame
     void Update()
     {
         if (!playerController.isStopMove)
