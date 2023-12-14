@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private List<EnemyDesigner> enemyDesinger;
     private Rigidbody2D rb;
     private Animator animator;
-    private GameObject particleSystemForSon;
     private bool isStartMove = false;
     [SerializeField]
     private GameObject line;
@@ -50,8 +49,8 @@ public class PlayerController : MonoBehaviour
     private float kCreepShowMaxTime;
     private void Awake()
     {
+        Debug.Log(preepPrefabs.name);
         bt = GetComponent<BehaviorTree>();
-        preepPrefabs = Resources.Load<GameObject>("Prefabs/Stone");
         IsSendEvent = false;
         line.SetActive(false);
         circle.SetActive(false);
@@ -65,7 +64,6 @@ public class PlayerController : MonoBehaviour
         }
         isSendEvent = true;
         animator = GetComponent<Animator>();
-        particleSystemForSon = GameObject.Find("ParticleSystem");
     }
 
     private void Update()
@@ -85,20 +83,6 @@ public class PlayerController : MonoBehaviour
             {
                 isStartMove = true;
                 isStopMove = false;
-            }
-        }
-        if (moveType == MoveType.kCreep)
-        {
-            if (particleSystemForSon.gameObject.activeInHierarchy == true)
-            {
-                particleSystemForSon.SetActive(false);
-            }
-        }
-        else
-        {
-            if(particleSystemForSon.gameObject.activeInHierarchy==false)
-            {
-                particleSystemForSon.SetActive(true);
             }
         }
     }

@@ -55,11 +55,10 @@ public class PreepController : MonoBehaviour
     }
     protected virtual void CalculateVelocity()
     {
-        float distace = (targetPos - transform.position).magnitude;
         direction = (targetPos - transform.position).normalized;
-        float velo = Mathf.Sqrt(distace * 2 * acceler);
-        stopTime = velo / (acceler);
-        ribi.velocity = velo * direction;
+        ribi.velocity = 8.5f * direction;
+        float distace = (targetPos - transform.position).magnitude;
+        stopTime = distace / ribi.velocity.magnitude;
     }
     protected virtual void OnCntLessDestrory()
     {
@@ -71,7 +70,6 @@ public class PreepController : MonoBehaviour
     }
     protected virtual void OnCntLessStop()
     {
-        ribi.velocity -= acceler * ribi.velocity.normalized * Time.deltaTime;
     }
     protected virtual void OnCntGreaterStop()
     {

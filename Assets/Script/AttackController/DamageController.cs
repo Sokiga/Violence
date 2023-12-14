@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EnumAttackType
 {
     kLongRange,
-    kShortRange
+    kShortRange,
+    kNone
 }
 public enum EnumAttackCharacter
 {
@@ -20,7 +21,8 @@ public enum EnumAttackWay
     kIronBars,
     kGSCatch,
     kBSCatch,
-    kGSThrow
+    kGSThrow,
+    kStone
 }
 public class AttackWay
 {
@@ -47,7 +49,8 @@ public class DamageController : MonoBehaviour
         {   EnumAttackWay.kIronBars , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kPlayer)        },
         {   EnumAttackWay.kGSCatch , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kGiantShadow)    },
         {   EnumAttackWay.kBSCatch , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kBlackShadow)    },
-        {   EnumAttackWay.kGSThrow , new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kGiantShadow)     }
+        {   EnumAttackWay.kGSThrow , new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kGiantShadow)     },
+        {   EnumAttackWay.kStone, new AttackWay(EnumAttackType.kNone,EnumAttackCharacter.kPlayer)                   }
     };
     private void Start()
     {
@@ -91,6 +94,9 @@ public class DamageController : MonoBehaviour
                 break;
             case EnumAttackWay.kGSThrow:
                 longRangePreep = Resources.Load<GameObject>("Prefabs/Obstacles");
+                break;
+            case EnumAttackWay.kStone:
+                longRangePreep = Resources.Load<GameObject>("Prefabs/Stone");
                 break;
             default:
                 longRangePreep = null;
