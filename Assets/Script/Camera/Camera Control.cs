@@ -9,7 +9,7 @@ public class CmeraControl : MonoBehaviour
     [SerializeField] GameObject lookat;
     [SerializeField] float smooth;
     [SerializeField] Camera mainCamera;
-    public Rigidbody2D body;
+
 
   
     private void LateUpdate()
@@ -25,8 +25,8 @@ public class CmeraControl : MonoBehaviour
     }
     public Vector3 GetVectorOffset()
     {
-        Vector3 screenCenterPos=new Vector3(Screen.width*0.5f, Screen.height * 0.5f, 0);
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);   
+        Vector3 screenCenterPos=new Vector3(Screen.width*0.5f,0, Screen.height * 0.5f);
+        Vector3 mousePos=new Vector3(Input.mousePosition.x,0, Input.mousePosition.z);   
         return mousePos - screenCenterPos;
     }
     public Vector3 SetCameraPos()

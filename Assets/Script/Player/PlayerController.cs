@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
     private float kCreepShowMaxTime;
     private void Awake()
     {
-        Debug.Log(preepPrefabs.name);
         bt = GetComponent<BehaviorTree>();
+        preepPrefabs = Resources.Load<GameObject>("Prefabs/Stone");
         IsSendEvent = false;
         line.SetActive(false);
         circle.SetActive(false);
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         }
         isSendEvent = true;
         animator = GetComponent<Animator>();
+
     }
 
     private void Update()
