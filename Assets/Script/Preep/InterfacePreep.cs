@@ -5,12 +5,14 @@ using UnityEngine;
 public class InterfacePreep : PreepController
 {
     protected PlayerController playerController;
+    private Animator animator;
     public float ratioSpeed;
     protected override void Start()
     {
         playerController = GetComponentInParent<PlayerController>();
         base.Start();
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Random.Range(0, 180));
+        animator = GetComponent<Animator>();
     }
     private void PreepUnSetEvent()
     {
@@ -30,6 +32,7 @@ public class InterfacePreep : PreepController
     }
     protected override void OnCntGreaterStop()
     {
+        animator.SetBool("is_noise", true);
         PreepSetEvent();
         base.OnCntGreaterStop();
     }
