@@ -15,7 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
     IEnumerator ChangeDir()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit; Debug.Log(time);
+        RaycastHit hit; 
         yield return new WaitForSeconds(time);
         if (Physics.Raycast(ray, out hit))
         {

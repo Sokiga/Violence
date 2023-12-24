@@ -18,6 +18,7 @@ public class PreepController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private new Collider2D collider;
     private bool isSendMsg = false;
+    private ShadowCaster2D shadowCaster2D;
     protected virtual void Start()
     {
         soundType = SoundType.kStone;
@@ -27,6 +28,7 @@ public class PreepController : MonoBehaviour
         ribi = GetComponent<Rigidbody2D>();
         CalculateVelocity();
         transform.SetParent(null, true);
+        shadowCaster2D = GetComponent<ShadowCaster2D>();
         destroyTime = stopTime + 5f;
     }
     protected virtual void Update()
@@ -53,10 +55,11 @@ public class PreepController : MonoBehaviour
     }
     protected virtual void CalculateVelocity()
     {
-        direction = (targetPos - transform.position).normalized;
-        ribi.velocity = 8.5f * direction;
         float distace = (targetPos - transform.position).magnitude;
-        stopTime = distace / ribi.velocity.magnitude;
+        direction = (targetPos - transform.position).normalized;
+        float velo = Mathf.Sqrt(distace * 2 * acceler);
+        stopTime = velo / (acceler);
+        ribi.velocity = velo * direction;
     }
     protected virtual void OnCntLessDestrory()
     {
@@ -68,6 +71,7 @@ public class PreepController : MonoBehaviour
     }
     protected virtual void OnCntLessStop()
     {
+        ribi.velocity -= acceler * ribi.velocity.normalized * Time.deltaTime;
     }
     protected virtual void OnCntGreaterStop()
     {
@@ -76,6 +80,7 @@ public class PreepController : MonoBehaviour
         spriteRenderer.color = new Color(
         spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.0f);
         collider.enabled = false;
+        shadowCaster2D.enabled = false;
 
     }
 }

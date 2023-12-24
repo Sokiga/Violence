@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6391263461788551320}
   - component: {fileID: 697182530923630718}
   - component: {fileID: 2420070217946209896}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Bottle2_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,14 +58,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.27450982, g: 0.37647063, b: 0.48627454, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -578804500, guid: 32cf21cf058db494c868bb5d144c7a7b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2635927096768432454}
   - component: {fileID: 5203391821005092131}
   - component: {fileID: 6896724332281944884}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Bottle1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,14 +133,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.39607847, g: 0.92549026, b: 0.8196079, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1967588876, guid: 32cf21cf058db494c868bb5d144c7a7b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 3869251301807974808}
   - component: {fileID: 1656487299906307901}
   - component: {fileID: 1942636002343894089}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,6 @@ MonoBehaviour:
   - 000000000
   - 000000000
   - 000000000
-  bagOperation: {fileID: 0}
 --- !u!223 &1656487299906307901
 Canvas:
   m_ObjectHideFlags: 0
@@ -260,8 +259,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1166666305
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &1942636002343894089
 MonoBehaviour:

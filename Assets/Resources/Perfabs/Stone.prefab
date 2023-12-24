@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4279569616710594333}
   - component: {fileID: 8737744083676892496}
   - component: {fileID: 1010478930646735329}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 35d7f690873d8384eb751dc0478728f9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   - 000000000
   - 000000000
   - 000000000
-  bagOperation: {fileID: 0}
+  prepareGrid: {fileID: 0}
 --- !u!223 &8737744083676892496
 Canvas:
   m_ObjectHideFlags: 0
@@ -139,8 +139,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1166666305
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &1010478930646735329
 MonoBehaviour:
