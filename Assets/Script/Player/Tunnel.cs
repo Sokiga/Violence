@@ -1,53 +1,78 @@
+using BehaviorDesigner.Runtime.Tasks.Movement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class Tunnel : MonoBehaviour
 {
-    [SerializeField] float S_Force;
-    private bool isStraddling;
-    public Rigidbody rb;
-    public Collider Player;
+    [SerializeField] float moveSpeed;
+    public bool isDriling;
+    public Rigidbody2D rb;
+    public Collider2D Player;
     public Transform S_Target;
-
-
-    private void FixedUpdate()
+    public Animator Girl;
+    public Transform start;
+    Vector3 moveDirection = Vector3.zero;
+    private void Start()
     {
-        if (isStraddling)
-        {if (Input.GetKey(KeyCode.W))
-            {
-                rb.AddForce(S_Force * S_Target.position);
-            }
-        else if(Input.GetKey(KeyCode.S)) 
-            {
-                rb.AddForce(-S_Force * S_Target.position);
-            }
-        }
-
+        
+        moveDirection = (S_Target.position - transform.position).normalized;
     }
 
-    private void OnTriggerStay(UnityEngine.Collider other)
+    private void Update()
     {
-        if (other.gameObject.tag == "Player")
+        Debug.Log(transform.position-S_Target.position);
+        Debug.DrawLine(rb.transform.position, S_Target.position,Color.red);
+        if (isDriling)
         {
-            Debug.Log(3);
-            if (Input.GetKeyDown(KeyCode.F))
+            StartDrill();
+            //GameObject.Find("Player").GetComponent<PlayerController>().TurnPlayerDirection(S_Target.position);
+            if (Input.GetKey(KeyCode.W))
             {
-                Player.isTrigger = true;
-                isStraddling = true;
-                Debug.Log(2);
+                
+                Girl.SetBool("isMoving", true);
+                rb.transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
+            else if (Input.GetKey(KeyCode.S))
+            {
+
+                Girl.SetBool("isMoving", true);
+                rb.transform.Translate(-moveDirection * moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                Girl.SetBool("isMoving", false); // Õ£÷π≤•∑≈“∆∂Ø∂Øª≠
+            }
+        } 
+    }
+
+     void OnTriggerStay2D(UnityEngine.Collider2D other)
+    {
+
+        if (other.CompareTag("Player")&&Input.GetKeyDown(KeyCode.F))
+        {   rb.transform.position= start.transform.position;
+            isDriling = true;
+            Player.isTrigger = true;
+            other.GetComponent<PlayerController>().isStopMove = true;
         }
     }
-    private void OnTriggerExit(UnityEngine.Collider other)
+     void OnTriggerExit2D(UnityEngine.Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
             Player.isTrigger = false;
-            isStraddling = false;
-            S_Force=-S_Force;
+            isDriling = false;
+            Girl.SetBool("IsDrile", false);
+            other.GetComponent<PlayerController>().isStopMove = false;
         }
+    }
+
+    void StartDrill()
+    {
+        Girl.SetBool("IsDrile",true);
     }
 }
 

@@ -10,18 +10,21 @@ public class CmeraControl : MonoBehaviour
     [SerializeField] float smooth;
     [SerializeField] Camera mainCamera;
     public Rigidbody body;
+    public bool isFunction = true;
 
 
     private void LateUpdate()
     {
-        Vector3 pos = transform.position;
-        pos.x = lookat.transform.position.x;
-        pos.y = lookat.transform.position.y;
-        pos.z = 15;
-        transform.position = pos;
-        Vector3 cameraPos = SetCameraPos();
-        transform.position = cameraPos;
-
+        if(isFunction)
+        {
+            Vector3 pos = transform.position;
+            pos.x = lookat.transform.position.x;
+            pos.y = lookat.transform.position.y;
+            pos.z = 15;
+            transform.position = pos;
+            Vector3 cameraPos = SetCameraPos();
+            transform.position = cameraPos;
+        }
     }
     public Vector3 GetVectorOffset()
     {

@@ -20,7 +20,9 @@ public enum EnumAttackWay
     kIronBars,
     kGSCatch,
     kBSCatch,
-    kGSThrow
+    kGSThrow,
+    kStone,
+    kBottle
 }
 public class AttackWay
 {
@@ -34,10 +36,9 @@ public class AttackWay
 }
 public class DamageController : MonoBehaviour
 {
-    [SerializeField]
-    private EnumAttackWay attackWayType;
+    public GameObject longRangePreep;
+    public EnumAttackWay attackWayType;
     private AttackWay attackWay;
-    private GameObject longRangePreep;
     [SerializeField]
     private PlayerController playerController;
     private Dictionary<EnumAttackWay, AttackWay> attDic = new Dictionary<EnumAttackWay, AttackWay>()
@@ -47,7 +48,9 @@ public class DamageController : MonoBehaviour
         {   EnumAttackWay.kIronBars , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kPlayer)        },
         {   EnumAttackWay.kGSCatch , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kGiantShadow)    },
         {   EnumAttackWay.kBSCatch , new AttackWay(EnumAttackType.kShortRange, EnumAttackCharacter.kBlackShadow)    },
-        {   EnumAttackWay.kGSThrow , new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kGiantShadow)     }
+        {   EnumAttackWay.kGSThrow , new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kGiantShadow)     },
+        {   EnumAttackWay.kStone, new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kPlayer)             },
+        {   EnumAttackWay.kBottle, new AttackWay(EnumAttackType.kLongRange, EnumAttackCharacter.kPlayer)            }
     };
     private void Start()
     {
@@ -92,6 +95,12 @@ public class DamageController : MonoBehaviour
             case EnumAttackWay.kGSThrow:
                 longRangePreep = Resources.Load<GameObject>("Prefabs/Obstacles");
                 break;
+            case EnumAttackWay.kStone:
+                longRangePreep = Resources.Load<GameObject>("Prefabs/Stone");
+                break;
+            case EnumAttackWay.kBottle:
+                longRangePreep = Resources.Load<GameObject>("Prefabs/Bottle");
+                break;
             default:
                 longRangePreep = null;
                 break;
@@ -122,5 +131,11 @@ public class DamageController : MonoBehaviour
                 Debug.Log("½ÇÉ«ËÀÍö");
             }
         }
+    }
+    public void ChangePlayerAttackPreep(int propType)
+    {
+        attackWayType = (EnumAttackWay)propType;
+        LoadPreep();
+        playerController.preepPrefabs = longRangePreep;
     }
 }

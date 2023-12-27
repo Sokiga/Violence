@@ -118,7 +118,6 @@ MonoBehaviour:
   - 000000000
   - 000000000
   - 000000000
-  prepareGrid: {fileID: 0}
 --- !u!223 &8737744083676892496
 Canvas:
   m_ObjectHideFlags: 0
@@ -140,7 +139,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1166666305
-  m_SortingOrder: 5
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &1010478930646735329
 MonoBehaviour:

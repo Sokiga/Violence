@@ -1,5 +1,6 @@
 using BehaviorDesigner.Runtime;
 using System.Collections.Generic;
+using TMPro.Examples;
 using Unity.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -26,10 +27,14 @@ public class PlayerController : MonoBehaviour
     public SharedVector3 targetPos;
     public GameObject preepPrefabs;
     public SharedFloat targetRange;
+    public bool isOpening = false;
     public float[] SoundRange;
     public bool isSendEvent;
     public bool isShowCircle = true;
     public bool isStopMove = false;
+    public bool isOpenBag = false;
+    public bool isOpenPlane = false;
+    public BagOperation bagOperation;
     private BehaviorTree bt;
     private SharedBool IsSendEvent;
     private bool isShowLine = false;
@@ -38,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private GameObject particleSystemForSon;
     private bool isStartMove = false;
+    private float openBagMaxTime = 1.0f;
+    private float openBagTime = 0f;
+    private DamageController damageController;
     [SerializeField]
     private GameObject line;
     [SerializeField]
@@ -48,9 +56,16 @@ public class PlayerController : MonoBehaviour
     private float kStopShowMaxTime;
     [SerializeField]
     private float kCreepShowMaxTime;
+    [SerializeField]
+    private Canvas bagCanvas;
+    [SerializeField]
+    private GameObject planePrefabs;
+    [SerializeField]
+    private CmeraControl cameraCtrl;
     private void Awake()
     {
         bt = GetComponent<BehaviorTree>();
+        damageController = GetComponent<DamageController>();
         preepPrefabs = Resources.Load<GameObject>("Prefabs/Stone");
         IsSendEvent = false;
         line.SetActive(false);
@@ -96,7 +111,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(particleSystemForSon.gameObject.activeInHierarchy==false)
+            if (particleSystemForSon.gameObject.activeInHierarchy == false)
             {
                 particleSystemForSon.SetActive(true);
             }
@@ -153,7 +168,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            isShowLine = true;
+            if ((damageController.attackWayType == EnumAttackWay.kStone && bagOperation.stonePrefabs.Count != 0) ||
+                (damageController.attackWayType == EnumAttackWay.kBottle && bagOperation.bottlePrefabs.Count != 0))
+                isShowLine = true;
         }
         if(Input.GetMouseButtonUp(1)) 
         { 
@@ -163,6 +180,8 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && isShowLine)
         {
+            if (damageController.attackWayType == EnumAttackWay.kStone) bagOperation.DeleteBagData(0);
+            else bagOperation.DeleteBagData(1);
             var temp = GameObject.Instantiate(preepPrefabs, transform);
             Vector3 offset = CalculatePreepVec();
             temp.transform.localPosition = Vector3.zero;
@@ -170,6 +189,33 @@ public class PlayerController : MonoBehaviour
             isShowLine = false;
             line.SetActive(false);
             circle.SetActive(false);
+        }
+        if(Input.GetKeyDown(KeyCode.Tab)) 
+        {
+            isOpening = true;
+        }
+        if(Input.GetKeyUp(KeyCode.Tab))
+        {
+            if (openBagTime > openBagMaxTime || isOpenBag)
+            {
+                isOpenBag = !isOpenBag;
+                OpenOrCloseBag(isOpenBag);
+            }
+            else
+            {
+                isOpenPlane = !isOpenPlane;
+                OpenOrClosePlane(isOpenPlane);
+            }
+            openBagTime = 0;
+            isOpening = false;
+        }
+        if (isOpening)
+        {
+            openBagTime += Time.deltaTime;
+        }
+        else
+        {
+            openBagTime = 0;
         }
     }
     private Vector3 CalculatePreepVec()
@@ -223,6 +269,40 @@ public class PlayerController : MonoBehaviour
         mouseWorldPostion.z = Mathf.Abs(Camera.main.transform.position.z);
         mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseWorldPostion);
         return mouseWorldPostion;
+    }
+    private void OpenOrCloseBag(bool isOpen)
+    {
+        if(isOpen)
+        {
+            bagCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            isStopMove = true;
+            Time.timeScale = 0;
+            cameraCtrl.isFunction = false;
+        }
+        else
+        {
+            bagCanvas.renderMode = RenderMode.WorldSpace;
+            isStopMove = false;
+            Time.timeScale = 1.0f;
+            cameraCtrl.isFunction = true;
+        }
+    }
+    private void OpenOrClosePlane(bool isOpen)
+    {
+        if(isOpen)
+        {
+            planePrefabs.SetActive(true);
+            Time.timeScale = 0;
+            cameraCtrl.isFunction = false;
+            isStopMove = true;
+        }
+        else
+        {
+            planePrefabs.SetActive(false);
+            Time.timeScale = 1.0f;
+            cameraCtrl.isFunction = true;
+            isStopMove = false;
+        }
     }
 }
 

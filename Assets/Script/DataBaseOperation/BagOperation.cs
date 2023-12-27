@@ -6,11 +6,14 @@ using UnityEngine;
 public enum PropType
 {
     kStone,
-    kBottle
+    kBottle,
+    kNone
 };
 public class BagOperation : MonoBehaviour
 {
     private SqliteOperation sqliteOperation;
+    public List<GameObject> stonePrefabs = new List<GameObject>();
+    public List<GameObject> bottlePrefabs = new List<GameObject>();
     public void ChangeBagData(int lastRota, PropType propType, int col, int row)
     {
         if (sqliteOperation == null) sqliteOperation = GetComponent<SqliteOperation>();
@@ -43,7 +46,29 @@ public class BagOperation : MonoBehaviour
                 if (str[i] != '-') tmp += str[i];
                 else break;
             }
+            if (str[str.Length - 1] == '0') stonePrefabs.Add(prop);
+            else bottlePrefabs.Add(prop);
             prop.transform.eulerAngles = new Vector3(prop.transform.eulerAngles.x, prop.transform.eulerAngles.y, Convert.ToInt32(tmp));
         }
+    }
+    public bool DeleteBagData(int propType)
+    {
+        if (propType == 0)
+        {
+            if (stonePrefabs.Count == 0) return false;
+            GameObject obj = stonePrefabs[stonePrefabs.Count - 1];
+            stonePrefabs.Remove(obj);
+            obj.GetComponent<PropController>().DeleteProp();
+            Destroy(obj);
+        }
+        else if(propType == 1) 
+        {
+            if(bottlePrefabs.Count == 0) return false;
+            GameObject obj = bottlePrefabs[bottlePrefabs.Count - 1];
+            bottlePrefabs.Remove(obj);
+            obj.GetComponent<PropController>().DeleteProp();
+            Destroy(obj);
+        }
+        return true;
     }
 }

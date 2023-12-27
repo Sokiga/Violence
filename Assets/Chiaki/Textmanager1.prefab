@@ -44,15 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e71099e75f27b348847999963f454ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogDataFile: {fileID: 0}
+  dialogDataFile:
+  - {fileID: 4900000, guid: ae1d716c6ed9c1342a31e366c19f1484, type: 3}
+  - {fileID: 4900000, guid: 75152b6990df4b3429723fe08b539bc3, type: 3}
+  - {fileID: 4900000, guid: 241edaafe11b54a44a4255d466e8579c, type: 3}
   Girl: {fileID: 0}
   NameText: {fileID: 0}
   Context: {fileID: 0}
   Next: {fileID: 0}
   Conversation: {fileID: 0}
   Player: {fileID: 0}
-  Expression: {fileID: 0}
   dialogIndex: 0
+  Index: 0
   dialogRows: []
   isSpoken: 0
   sprites:

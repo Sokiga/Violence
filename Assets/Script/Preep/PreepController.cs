@@ -18,7 +18,7 @@ public class PreepController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private new Collider2D collider;
     private bool isSendMsg = false;
-    private ShadowCaster2D shadowCaster2D;
+    private float rotationAngle = 60f;
     protected virtual void Start()
     {
         soundType = SoundType.kStone;
@@ -28,11 +28,12 @@ public class PreepController : MonoBehaviour
         ribi = GetComponent<Rigidbody2D>();
         CalculateVelocity();
         transform.SetParent(null, true);
-        shadowCaster2D = GetComponent<ShadowCaster2D>();
         destroyTime = stopTime + 5f;
+        transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
     }
     protected virtual void Update()
     {
+        transform.eulerAngles += new Vector3(0, 0, rotationAngle * Time.deltaTime);
         if (destroyCnt < destroyTime)
         {
             OnCntLessDestrory();
@@ -80,7 +81,5 @@ public class PreepController : MonoBehaviour
         spriteRenderer.color = new Color(
         spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.0f);
         collider.enabled = false;
-        shadowCaster2D.enabled = false;
-
     }
 }

@@ -20,6 +20,7 @@ public class Textmanager : MonoBehaviour
     public  bool isSpoken = false;
     public List<Sprite>sprites= new List<Sprite>(); 
     Dictionary<string,Sprite> imageDic=new Dictionary<string,Sprite>();
+    private bool isSpeaking = true;
     private void Awake()
     {
         imageDic["!"] = sprites[0];
@@ -31,7 +32,6 @@ public class Textmanager : MonoBehaviour
     private void Start()
     {
         Invoke("ShowDialogRow", 3f);
-        UpdateSprite("#");
     }
     private void Update()
     {
@@ -41,6 +41,16 @@ public class Textmanager : MonoBehaviour
             Index++;
             dialogIndex = 0;
             ShowDialogRow();
+        }
+        if (isSpeaking == false)
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().enabled = true;
+            GameObject.Find("FollowCamera").GetComponent<CmeraControl>().enabled = true;
+        }
+        else if (isSpeaking == true)
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().enabled = false;
+            GameObject.Find("FollowCamera").GetComponent<CmeraControl>().enabled = false;
         }
     }
     public void UpdateSprite(string _name)
@@ -59,12 +69,14 @@ public class Textmanager : MonoBehaviour
     }//将文本按\n分组
     public void ShowDialogRow()//读取内容并显示
     {
+        isSpeaking = true;
         ReadText(dialogDataFile[Index]);
         foreach (var row in dialogRows)
         {
             string[] cell = row.Split(',');//按逗号进行分组
             if ((cell[0] == "!"|| cell[0] == "@" || cell[0] == "#" || cell[0] == "$" || cell[0] == "%") && int.Parse(cell[1]) == dialogIndex)
             {
+                
                 Conversation.gameObject.SetActive(true);
                 UpdateText(cell[2], cell[3]);
                 UpdateSprite(cell[0]);
@@ -72,20 +84,19 @@ public class Textmanager : MonoBehaviour
                 break;
             }
             if (dialogIndex == 999)
-            { 
+            {
+                isSpeaking = false;
                 Conversation.gameObject.SetActive(false);
                 Player.SetBool("IsSpoken", isSpoken);
-                if (Index == 1)
-                {
-                    GameObject.Find("Player").GetComponent<PlayerController>().enabled= true;
-                    GameObject.Find("FollowCamera").GetComponent<CmeraControl>().enabled = true;
-                }
+                
             }
+            
         }
     }
     public void OnClickNext()
     {
         ShowDialogRow();
     }
+
 
 }

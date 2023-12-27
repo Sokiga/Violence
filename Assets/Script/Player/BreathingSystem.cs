@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class BreathingSystem : MonoBehaviour
 {
+    public float breathingValue;
+    public float moveMaxValue = 40;
+    public TerroritySystem terroritySystem;
     private PlayerController playerController;
     private Dictionary<int, float> consumeBreath = new Dictionary<int, float>();
     private Dictionary<int, float> restoreBreath = new Dictionary<int, float>();
-    private float breathingValue;
-    private float moveMaxValue = 40;
     private float maxValue = 100;
     private bool isHolding = false;
+    [SerializeField]
+    private Image breImgae;
     private void Start()
     {
+        terroritySystem = GetComponent<TerroritySystem>();
         breathingValue = maxValue;
         playerController = GetComponent<PlayerController>();
         consumeBreath[(int)MoveType.kRun] = 12.5f;
@@ -47,7 +53,10 @@ public class BreathingSystem : MonoBehaviour
             breathingValue += restoreBreath[(int)playerController.moveType] * Time.deltaTime;
             breathingValue = Mathf.Min(maxValue, breathingValue);
         }
-        if (playerController.isStopMove && breathingValue > moveMaxValue)
+        if (breathingValue > moveMaxValue &&
+            terroritySystem.terValue > terroritySystem.maxTerValue * 0.9f && 
+            !playerController.isOpenBag &&
+            !playerController.isOpenPlane)
         {
             playerController.isStopMove = false;
         }
@@ -57,5 +66,6 @@ public class BreathingSystem : MonoBehaviour
             playerController.moveType = MoveType.kStop;
             isHolding = false;
         }
+        breImgae.fillAmount = breathingValue * 0.5f;
     }
 }

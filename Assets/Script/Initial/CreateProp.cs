@@ -37,7 +37,6 @@ public class CreateProp : MonoBehaviour
                 }
             }
         }
-        Debug.Log(1);
         gridPos = null;
         return false;
     }

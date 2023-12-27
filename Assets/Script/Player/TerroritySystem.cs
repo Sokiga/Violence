@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
 public class TerroritySystem : MonoBehaviour
 {
+    public float terValue = 0;
+    public float maxTerValue = 100;
     private PlayerController playerController;
-    private SpriteRenderer spriteRenderer;
-    private float terValue = 0;
+    private BreathingSystem breathingSystem;
     private float maxRadius = 5f;
-    private new ParticleSystem particleSystem;
     private float upValue = 30;
     private float downValue = 20;
-    private float maxTerValue = 100;
+    [SerializeField]
+    private Image terImage;
     private void Start()
     {
         terValue = 0;
-        particleSystem = GetComponentInChildren<ParticleSystem>();
+        breathingSystem = GetComponent<BreathingSystem>();
         playerController = GetComponent<PlayerController>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         upValue = 30;
         downValue = 20;
 
     }
     private void Update()
     {
-        particleSystem.textureSheetAnimation.SetSprite(0, spriteRenderer.sprite);
         bool isUp = false;
         for (int i = 0; i < playerController.enemyTarget.Count; i++)
         {
@@ -48,14 +48,16 @@ public class TerroritySystem : MonoBehaviour
             terValue -= downValue * Time.deltaTime;
             terValue = Mathf.Max(terValue, 0f);
         }
-        if (terValue > maxTerValue * 0.9f)
+        if (terValue > maxTerValue * 0.9f &&
+            breathingSystem.breathingValue > breathingSystem.moveMaxValue)
         {
             playerController.isStopMove = true;
         }
-        else
+        else if (!playerController.isOpenPlane && !playerController.isOpenBag)
         {
             playerController.isStopMove = false;
         }
+        terImage.fillAmount = terValue * 0.5f + 0.5f;
     }
 
 }

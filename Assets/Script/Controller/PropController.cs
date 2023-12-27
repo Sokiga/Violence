@@ -12,22 +12,21 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
 {
 
     public string[] memoryArray;
+    public CreatedGrid gridData;
+    public Tuple<int, int> lastPos = new Tuple<int, int>(0, 0);
     private BagOperation bagOperation;
-    private CreatedGrid gridData;
     private Transform transformForLast;
     private GridLayoutGroup layoutGroup;
     private RectTransform rectTransform;
     private Vector3 mouseOffset = Vector3.zero;
     private int[,] gridObjHave;
     private Canvas canvas;
-    private bool isChangeRota = false;
-    private Tuple<int, int> lastPos = new Tuple<int, int>(0, 0);
+    private CreateProp createProp;
     private Tuple<int, int> lastRect = new Tuple<int, int>(0, 0);
-    private float RotaTime;
-    private float RotaMaxTime = 0.2f;
     private Dictionary<int, Tuple<int, int>> dic;
     private Tuple<int, int> lastDic = new Tuple<int, int>(0, 0);
     private int lastRota = 0;
+    private bool isChangeRota = false;
     private void Start()
     {
         bagOperation= gameObject.GetComponentInParent<BagOperation>();
@@ -38,7 +37,6 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
         gridObjHave = gridData.gridObjHave;
         transformForLast = transform.parent;
         transform.localPosition = Vector3.zero;
-
         for (int i = 0; i < gridData.maxCol; ++i)
         {
             for (int j = 0; j < gridData.maxRow; ++j)
@@ -59,7 +57,6 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
                 }
             }
         }
-        RotaTime = 0f;
         dic = new Dictionary<int, Tuple<int, int>>();
         dic.Add(90, new Tuple<int, int>(-1, 1));
         dic.Add(270, new Tuple<int, int>(-1, -1));
@@ -78,22 +75,21 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
             }
             gridObjHave[tmpx, tmpy] = 1;
             gridData.gridObjData[tmpx, tmpy].GetComponentInChildren<TextMeshProUGUI>().text = "1";
-
         }
-
+        createProp = GetComponentInParent<CreateProp>();
+        GetComponent<Canvas>().sortingOrder = 2;
     }
     private void Update()
     {
-
-        if (isChangeRota)
+        if(isChangeRota) ChangeRotation();
+        if(Input.GetKeyUp(KeyCode.C))
         {
-            if (RotaTime > RotaMaxTime && ChangeRotation())
-            {
-                RotaTime = 0f;
-            }
-            else RotaTime += Time.deltaTime;
+            createProp.CreatePropForBag(0);
         }
-        else RotaTime = 0f;
+        if(Input.GetKeyUp(KeyCode.V))
+        {
+            createProp.CreatePropForBag(1);
+        }
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -237,8 +233,8 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     }
     private bool ChangeRotation()
     {
-        if (Input.GetKey(KeyCode.A)) transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
-        else if (Input.GetKey(KeyCode.D)) transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 90);
+        if (Input.GetKeyDown(KeyCode.A)) transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
+        else if (Input.GetKeyDown(KeyCode.D)) transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 90);
         else return false;
         return true;
     }
@@ -247,5 +243,25 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     {
         isChangeRota = false;
         OnEndDrag(eventData);
+    }
+    public void DeleteProp()
+    {
+        List<Tuple<int, int>> propMemory = GetLoaclTuple(lastRect);
+        for (int i = 0; i < propMemory.Count; ++i)
+        {
+            int tmpx = propMemory[i].Item1 + lastPos.Item1, tmpy = propMemory[i].Item2 + lastPos.Item2;
+            if (i != 0)
+            {
+                tmpx += lastDic.Item1;
+                tmpy += lastDic.Item2;
+            }
+            if (tmpx < 0 || tmpx >= gridData.maxCol || tmpy < 0 || tmpy >= gridData.maxRow)
+            {
+                continue;
+            }
+            gridObjHave[tmpx, tmpy] = 0;
+            gridData.gridObjData[tmpx, tmpy].GetComponentInChildren<TextMeshProUGUI>().text = "0";
+        }
+        bagOperation.ResetBagData(lastPos.Item1, lastPos.Item2);
     }
 }
