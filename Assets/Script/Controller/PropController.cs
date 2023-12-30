@@ -14,14 +14,15 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     public string[] memoryArray;
     public CreatedGrid gridData;
     public Tuple<int, int> lastPos = new Tuple<int, int>(0, 0);
+    public CreateProp createProp;
+    [SerializeField]
+    public int[,] gridObjHave;
     private BagOperation bagOperation;
     private Transform transformForLast;
     private GridLayoutGroup layoutGroup;
     private RectTransform rectTransform;
     private Vector3 mouseOffset = Vector3.zero;
-    private int[,] gridObjHave;
     private Canvas canvas;
-    private CreateProp createProp;
     private Tuple<int, int> lastRect = new Tuple<int, int>(0, 0);
     private Dictionary<int, Tuple<int, int>> dic;
     private Tuple<int, int> lastDic = new Tuple<int, int>(0, 0);
@@ -30,20 +31,21 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     private void Start()
     {
         bagOperation= gameObject.GetComponentInParent<BagOperation>();
-        gridData = gameObject.GetComponentInParent<CreatedGrid>();
         layoutGroup = gameObject.GetComponentInParent<GridLayoutGroup>();
         rectTransform = gameObject.GetComponent<RectTransform>();
         canvas = gameObject.GetComponent<Canvas>();
-        gridObjHave = gridData.gridObjHave;
         transformForLast = transform.parent;
         transform.localPosition = Vector3.zero;
-        for (int i = 0; i < gridData.maxCol; ++i)
+        if (gridData != null)
         {
-            for (int j = 0; j < gridData.maxRow; ++j)
+            for (int i = 0; i < gridData.maxCol; ++i)
             {
-                if (gridData.gridObjData[i, j].transform == transformForLast)
+                for (int j = 0; j < gridData.maxRow; ++j)
                 {
-                    lastPos = Tuple.Create(i, j);
+                    if (gridData.gridObjData[i, j].transform == transformForLast)
+                    {
+                        lastPos = Tuple.Create(i, j);
+                    }
                 }
             }
         }
@@ -57,6 +59,7 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
                 }
             }
         }
+        gridObjHave = gridData.gridObjHave;
         dic = new Dictionary<int, Tuple<int, int>>();
         dic.Add(90, new Tuple<int, int>(-1, 1));
         dic.Add(270, new Tuple<int, int>(-1, -1));
@@ -77,7 +80,7 @@ public class PropController : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
             gridData.gridObjData[tmpx, tmpy].GetComponentInChildren<TextMeshProUGUI>().text = "1";
         }
         createProp = GetComponentInParent<CreateProp>();
-        GetComponent<Canvas>().sortingOrder = 2;
+        GetComponent<Canvas>().sortingOrder = 100;
     }
     private void Update()
     {

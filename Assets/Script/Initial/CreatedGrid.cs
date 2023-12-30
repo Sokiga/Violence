@@ -28,7 +28,11 @@ public class CreatedGrid : MonoBehaviour
             {
                 gridObjData[i, j] = Instantiate(gridObjPrefabs);
                 gridObjData[i, j].transform.SetParent(transform);
-                bagOperation.UpdateBagData(i, j, gridObjData[i, j]);
+                if(bagOperation.UpdateBagData(i, j, gridObjData[i, j]))
+                {
+                    gridObjData[i, j].GetComponentInChildren<PropController>().gridObjHave = gridObjHave;
+                    gridObjData[i, j].GetComponentInChildren<PropController>().createProp = GetComponent<CreateProp>();
+                }
             }
         }
         

@@ -8,7 +8,7 @@ public class CreateProp : MonoBehaviour
 {
     private CreatedGrid createdGrid;
     private BagOperation bagOperation;
-    private void Start()
+    private void Awake()
     {
         createdGrid = GetComponent<CreatedGrid>();
         bagOperation = GetComponent<BagOperation>();
@@ -42,12 +42,12 @@ public class CreateProp : MonoBehaviour
     }
     public void CreatePropForBag(int prop)
     {
-        PropType propType=(PropType)prop;
+        PropType propType = (PropType)prop;
         Tuple<int, int> gridPos;
-        if(FindGrid(propType, out gridPos))
+        if (FindGrid(propType, out gridPos))
         {
             GameObject prefabs;
-            if(propType==PropType.kStone)
+            if (propType == PropType.kStone)
             {
                 prefabs = Resources.Load("Perfabs/Stone") as GameObject;
                 GameObject obj = GameObject.Instantiate(prefabs);
@@ -68,8 +68,8 @@ public class CreateProp : MonoBehaviour
             bagOperation.ChangeBagData(0, propType, gridPos.Item1, gridPos.Item2);
             //return true;
         }
-        else 
-        { 
+        else
+        {
             //return false;
         }
 

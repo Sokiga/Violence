@@ -49,7 +49,7 @@ public class TerroritySystem : MonoBehaviour
             terValue = Mathf.Max(terValue, 0f);
         }
         if (terValue > maxTerValue * 0.9f &&
-            breathingSystem.breathingValue > breathingSystem.moveMaxValue)
+            breathingSystem.breathingValue < breathingSystem.moveMaxValue)
         {
             playerController.isStopMove = true;
         }
@@ -57,7 +57,7 @@ public class TerroritySystem : MonoBehaviour
         {
             playerController.isStopMove = false;
         }
-        terImage.fillAmount = terValue * 0.5f + 0.5f;
+        terImage.fillAmount = (terValue / 100 * 0.5f) + 0.5f;
     }
 
 }

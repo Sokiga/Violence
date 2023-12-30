@@ -66,6 +66,6 @@ public class BreathingSystem : MonoBehaviour
             playerController.moveType = MoveType.kStop;
             isHolding = false;
         }
-        breImgae.fillAmount = breathingValue * 0.5f;
+        breImgae.fillAmount = breathingValue / 100 * 0.5f;
     }
 }

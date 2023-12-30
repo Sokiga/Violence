@@ -27,7 +27,7 @@ public class BagOperation : MonoBehaviour
         string data = string.Format("Update BagDataBase Set column{0} = '0' Where rowid = '{1}'", row + 1, col + 1);
         sqliteOperation.UpdataDataBase(data);
     }
-    public void UpdateBagData(int col, int row,GameObject parent)
+    public bool UpdateBagData(int col, int row,GameObject parent)
     {
         if (sqliteOperation == null) sqliteOperation = GetComponent<SqliteOperation>();
         string cmd = string.Format("Select column{0} From BagDataBase Where rowid = '{1}'", row + 1, col + 1);
@@ -38,6 +38,7 @@ public class BagOperation : MonoBehaviour
             if (str[str.Length - 1] == '0') @object = Resources.Load("Perfabs/Stone") as GameObject;
             else @object = Resources.Load("Perfabs/Bottle") as GameObject;
             GameObject prop = GameObject.Instantiate(@object);
+            prop.GetComponent<PropController>().gridData = this.GetComponent<CreatedGrid>();
             prop.transform.SetParent(parent.transform);
             prop.transform.position = Vector3.zero;
             string tmp = "";
@@ -49,6 +50,11 @@ public class BagOperation : MonoBehaviour
             if (str[str.Length - 1] == '0') stonePrefabs.Add(prop);
             else bottlePrefabs.Add(prop);
             prop.transform.eulerAngles = new Vector3(prop.transform.eulerAngles.x, prop.transform.eulerAngles.y, Convert.ToInt32(tmp));
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     public bool DeleteBagData(int propType)
