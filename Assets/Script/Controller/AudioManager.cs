@@ -17,14 +17,12 @@ public class AudioManager : MonoBehaviour
         }
         void Update()
         {
-            ...
-			if (Input.GetKeyDown(KeyCode.UpArrow))//Èç¹ûÊäÈë¡ü
+			if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 music.clip = jump;
                 music.Play();
             }
         }
     }
-    }
-
 }
+
