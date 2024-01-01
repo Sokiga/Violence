@@ -24,7 +24,7 @@ public class Tunnel : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(transform.position-S_Target.position);
+        Debug.Log(transform.position - S_Target.position);
         Debug.DrawLine(rb.transform.position, S_Target.position,Color.red);
         if (isDriling)
         {

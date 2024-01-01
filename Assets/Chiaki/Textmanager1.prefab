@@ -57,10 +57,14 @@ MonoBehaviour:
   dialogIndex: 0
   Index: 0
   dialogRows: []
-  isSpoken: 0
+  hasSpoken: 0
   sprites:
   - {fileID: 21300000, guid: 8509c9075132566448c143fc94f4aa22, type: 3}
   - {fileID: 21300000, guid: 1cf5a8ac31e8e3b4abfff9bfe5e16275, type: 3}
   - {fileID: 21300000, guid: d0a711a09ef900244aba40e39ae10949, type: 3}
   - {fileID: 21300000, guid: 2e7a1012e6154d2478bbfe6bdd94693b, type: 3}
   - {fileID: 21300000, guid: bd1bcfd0ed364b043a3e33aa5f91ce47, type: 3}
+  MouseAppear: {fileID: 0}
+  MouseDie: {fileID: 0}
+  PlayerSave: {fileID: 0}
+  PlayerDied: {fileID: 0}

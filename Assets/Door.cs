@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Door : MonoBehaviour
 {
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag=="Player" && Input.GetKeyDown(KeyCode.F))
+        if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log(1);
-            GameObject.Find("Textmanager1").GetComponent<Textmanager>().isSpoken = true;
+            GameObject.Find("Textmanager").GetComponent<Textmanager>().hasSpoken = true;
         }
     }
 }

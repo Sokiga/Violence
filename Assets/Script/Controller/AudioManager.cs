@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public class Player : MonoBehaviour
     {
-    public AudioSource music;
+        public AudioSource music;
         public AudioClip jump;
 
         private void Awake()

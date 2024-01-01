@@ -217,7 +217,7 @@ MonoBehaviour:
   stopTime: 2
   soundType: 0
   acceler: 5
-  ratioSpeed: 60
+  clip: {fileID: 8300000, guid: 61ab7f872c6f54a4eaf7d663a3ea255f, type: 3}
 --- !u!95 &2070836295389124139
 Animator:
   serializedVersion: 5

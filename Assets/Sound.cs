@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sound : MonoBehaviour
+public class _Sound : MonoBehaviour
 {
     private bool isheard=false;
     private void Update()
@@ -19,7 +19,7 @@ public class Sound : MonoBehaviour
     private void scared()
     {
         
-            GameObject.Find("Textmanager1").GetComponent<Textmanager>().isSpoken = true;
+            GameObject.Find("Textmanager1").GetComponent<_Textmanager>().isSpoken = true;
             isheard = false;
             Debug.Log("zizizi");
     }

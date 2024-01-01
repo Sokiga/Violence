@@ -1,6 +1,7 @@
 using BehaviorDesigner.Runtime.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering.Universal;
@@ -12,6 +13,8 @@ public class PreepController : MonoBehaviour
     public float stopTime;
     public SoundType soundType;
     public float acceler = 5.0f;
+    public AudioClip clip;
+    private AudioSource source;
     private Vector3 direction;
     private float destroyCnt;
     private Rigidbody2D ribi;
@@ -30,6 +33,8 @@ public class PreepController : MonoBehaviour
         transform.SetParent(null, true);
         destroyTime = stopTime + 5f;
         transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
+        source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
     }
     protected virtual void Update()
     {
@@ -76,6 +81,8 @@ public class PreepController : MonoBehaviour
     }
     protected virtual void OnCntGreaterStop()
     {
+        source.PlayOneShot(clip);
+        GetComponent<Animator>().SetBool("is_noise", true);
         ribi.velocity = Vector3.zero;
         isSendMsg = true;
         spriteRenderer.color = new Color(

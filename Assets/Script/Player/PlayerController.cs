@@ -34,7 +34,10 @@ public class PlayerController : MonoBehaviour
     public bool isStopMove = false;
     public bool isOpenBag = false;
     public bool isOpenPlane = false;
+    public bool isHasKey = false;
+    public AudioClip runClip;
     public BagOperation bagOperation;
+    private AudioSource audioSource;
     private BehaviorTree bt;
     private SharedBool IsSendEvent;
     private bool isShowLine = false;
@@ -64,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private CmeraControl cameraCtrl;
     private void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
         bt = GetComponent<BehaviorTree>();
         damageController = GetComponent<DamageController>();
         preepPrefabs = Resources.Load<GameObject>("Prefabs/Stone");
@@ -90,6 +94,11 @@ public class PlayerController : MonoBehaviour
         if (isShowLine)
         {
             ShowLine();
+            animator.SetBool("IsPrepare", true);
+        }
+        else
+        {
+            animator.SetBool("IsPrepare", false);
         }
         ShowEnemyOpacityStatus();
         animator.SetInteger("MoveType", (int)moveType);
@@ -180,6 +189,8 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && isShowLine)
         {
+            animator.SetBool("IsThrow", true);
+            animator.SetBool("IsPrepare", false);
             if (damageController.attackWayType == EnumAttackWay.kStone) bagOperation.DeleteBagData(0);
             else bagOperation.DeleteBagData(1);
             var temp = GameObject.Instantiate(preepPrefabs, transform);
@@ -303,6 +314,14 @@ public class PlayerController : MonoBehaviour
             cameraCtrl.isFunction = true;
             isStopMove = false;
         }
+    }
+    public void OnPlayerExite()
+    {
+        animator.SetBool("IsThrow", false);
+    }
+    public void MakeSound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
 

@@ -8,22 +8,22 @@ using UnityEngine.Events;
 public class AfterRise : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+   /* override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-    GameObject.Find("Player").GetComponent<PlayerController>().enabled = false;
-    GameObject.Find("FollowCamera").GetComponent<CmeraControl>().enabled = false;
-    }
+
+    }*/
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+        GameObject.Find("Player").GetComponent<PlayerController>().isStopMove = true;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject.Find("Textmanager1").GetComponent<Textmanager>().isSpoken = true;
+        //GameObject.Find("Textmanager").GetComponent<Textmanager>().hasSpoken = true;
+       
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

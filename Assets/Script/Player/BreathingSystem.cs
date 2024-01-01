@@ -50,13 +50,14 @@ public class BreathingSystem : MonoBehaviour
         }
         if (!isHolding || playerController.isStopMove)
         {
-            breathingValue += restoreBreath[(int)playerController.moveType] * Time.deltaTime;
+            if(playerController.moveType!= (MoveType)3)
+            {
+                breathingValue += restoreBreath[(int)playerController.moveType] * Time.deltaTime;
+            }
             breathingValue = Mathf.Min(maxValue, breathingValue);
         }
-        if (breathingValue > moveMaxValue &&
-            terroritySystem.terValue > terroritySystem.maxTerValue * 0.9f && 
-            !playerController.isOpenBag &&
-            !playerController.isOpenPlane)
+        if (breathingValue > moveMaxValue ||
+            terroritySystem.terValue > terroritySystem.maxTerValue * 0.9f)
         {
             playerController.isStopMove = false;
         }

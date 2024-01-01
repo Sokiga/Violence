@@ -48,14 +48,15 @@ public class TerroritySystem : MonoBehaviour
             terValue -= downValue * Time.deltaTime;
             terValue = Mathf.Max(terValue, 0f);
         }
-        if (terValue > maxTerValue * 0.9f &&
-            breathingSystem.breathingValue < breathingSystem.moveMaxValue)
+        if (terValue > maxTerValue * 0.9f)
         {
             playerController.isStopMove = true;
         }
-        else if (!playerController.isOpenPlane && !playerController.isOpenBag)
+        else if (!playerController.isOpenPlane && !playerController.isOpenBag
+            && breathingSystem.breathingValue > breathingSystem.moveMaxValue)
         {
-            playerController.isStopMove = false;
+            if(breathingSystem.breathingValue < 90 && playerController.isStopMove == true) { }
+            else playerController.isStopMove = false;
         }
         terImage.fillAmount = (terValue / 100 * 0.5f) + 0.5f;
     }

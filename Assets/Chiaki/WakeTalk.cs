@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using TMPro.Examples;
 
-public class Textmanager : MonoBehaviour
+public class _Textmanager : MonoBehaviour
 {
     public TextAsset[] dialogDataFile;
     public Image Girl;
